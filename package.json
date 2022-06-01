@@ -6,7 +6,7 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ankanbag101/ArrayUtils.git"
+    "url": "git+https://github.com/akbng/ArrayUtils.git"
   },
   "keywords": [
     "array",
@@ -19,7 +19,10 @@
   "author": "Ankan Bag",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ankanbag101/ArrayUtils/issues"
+    "url": "https://github.com/akbng/ArrayUtils/issues"
   },
-  "homepage": "https://github.com/ankanbag101/ArrayUtils#readme"
+  "homepage": "https://github.com/akbng/ArrayUtils.git#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.6.0"
+  }
 }
