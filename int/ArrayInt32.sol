@@ -58,4 +58,15 @@ library ArrayInt32 {
         );
         return _array[index];
     }
+
+    // mutates the original array
+    function remove(int32[] storage _array, uint256 _index) internal {
+        require(_array.length > 0, "ArrayInt32: array should not be empty");
+        require(
+            _index < _array.length,
+            "ArrayInt32: index should not be greater than array length"
+        );
+        _array[_index] = _array[_array.length - 1];
+        _array.pop();
+    }
 }

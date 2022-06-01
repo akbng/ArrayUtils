@@ -59,6 +59,17 @@ library ArrayString {
         return _array[index];
     }
 
+    // mutates the original array
+    function remove(string[] storage _array, uint256 _index) internal {
+        require(_array.length > 0, "ArrayString: array should not be empty");
+        require(
+            _index < _array.length,
+            "ArrayString: index should not be greater than array length"
+        );
+        _array[_index] = _array[_array.length - 1];
+        _array.pop();
+    }
+
     function equals(string memory a, string memory b)
         private
         pure

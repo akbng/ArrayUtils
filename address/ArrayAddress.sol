@@ -58,4 +58,15 @@ library ArrayAddress {
         );
         return _array[index];
     }
+
+    // mutates the original array
+    function remove(address[] storage _array, uint256 _index) internal {
+        require(_array.length > 0, "ArrayAddress: array should not be empty");
+        require(
+            _index < _array.length,
+            "ArrayAddress: index should not be greater than array length"
+        );
+        _array[_index] = _array[_array.length - 1];
+        _array.pop();
+    }
 }
