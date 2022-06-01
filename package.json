@@ -1,0 +1,25 @@
+{
+  "name": "@akbng/array-sol",
+  "version": "0.1.0",
+  "description": "A collection of commonly used array functions for solidity smart contracts",
+  "main": "README.md",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankanbag101/ArrayUtils.git"
+  },
+  "keywords": [
+    "array",
+    "solidity",
+    "solidity array",
+    "array library",
+    "array functions",
+    "array methods"
+  ],
+  "author": "Ankan Bag",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ankanbag101/ArrayUtils/issues"
+  },
+  "homepage": "https://github.com/ankanbag101/ArrayUtils#readme"
+}
