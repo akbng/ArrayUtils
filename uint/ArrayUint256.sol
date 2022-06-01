@@ -39,6 +39,28 @@ library ArrayUint256 {
         return false;
     }
 
+    function includesInSorted(uint256[] storage _array, uint256 _value)
+        internal
+        view
+        returns (bool)
+    {
+        require(_array.length > 0, "ArrayUint256: array should not be empty");
+        require(
+            isSorted(_array),
+            "ArrayUint256: array should be sorted in ascending order"
+        );
+        uint256 lv = 0;
+        uint256 uv = _array.length;
+        while (lv < uv) {
+            uint256 mid = (lv + uv) / 2;
+            if (_value == _array[mid]) return true;
+            lv = _value > _array[mid] ? mid + 1 : lv;
+            uv = _value < _array[mid] ? mid - 1 : uv;
+        }
+        return false;
+    }
+
+    // this function would consume high gas for long arrays
     function indexOf(uint256[] storage _array, uint256 _value)
         internal
         view
