@@ -7,6 +7,26 @@ library ArrayUint256 {
     using SafeCast for int256;
     using SafeCast for uint256;
 
+    function isSorted(uint256[] storage _array) internal view returns (bool) {
+        require(_array.length > 0, "ArrayUint256: array should not be empty");
+        for (uint256 i = 0; i < _array.length - 1; i++) {
+            if (_array[i] >= _array[i + 1]) return false;
+        }
+        return true;
+    }
+
+    function isSortedDesc(uint256[] storage _array)
+        internal
+        view
+        returns (bool)
+    {
+        require(_array.length > 0, "ArrayUint256: array should not be empty");
+        for (uint256 i = 0; i < _array.length - 1; i++) {
+            if (_array[i] <= _array[i + 1]) return false;
+        }
+        return true;
+    }
+
     function includes(uint256[] storage _array, uint256 _value)
         internal
         view
