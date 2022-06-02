@@ -2,7 +2,6 @@
   "name": "@akbng/array-sol",
   "version": "0.1.0",
   "description": "A collection of commonly used array functions for solidity smart contracts",
-  "main": "README.md",
   "scripts": {},
   "repository": {
     "type": "git",
