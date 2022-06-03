@@ -20,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/akbng/ArrayUtils/issues"
   },
-  "homepage": "https://github.com/akbng/ArrayUtils.git#readme",
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.6.0"
-  }
+  "homepage": "https://github.com/akbng/ArrayUtils.git#readme"
 }
