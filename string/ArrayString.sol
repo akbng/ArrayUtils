@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import "../openzeppelin/SafeCast.sol";
 
 library ArrayString {
     using SafeCast for int256;
