@@ -19,7 +19,7 @@ library ArrayUint256 {
         uint256 _high
     ) private {
         if (_low < _high) {
-            uint256 pivotVal = _array[(_low + _high) / 2];
+            uint256 pivotVal = _array[(_low & _high) + (_low ^ _high) / 2];
             uint256 lv = _low;
             uint256 uv = _high;
             while (true) {
@@ -74,7 +74,6 @@ library ArrayUint256 {
         view
         returns (bool)
     {
-        require(_array.length > 0, "ArrayUint256: array should not be empty");
         require(
             isSorted(_array),
             "ArrayUint256: array should be sorted in ascending order"
@@ -82,10 +81,10 @@ library ArrayUint256 {
         uint256 lv = 0;
         uint256 uv = _array.length;
         while (lv < uv) {
-            uint256 mid = (lv + uv) / 2;
+            uint256 mid = (lv & uv) + (lv ^ uv) / 2;
             if (_value == _array[mid]) return true;
-            lv = _value > _array[mid] ? mid + 1 : lv;
-            uv = _value < _array[mid] ? mid - 1 : uv;
+            if (_value > _array[mid]) lv = mid + 1;
+            else uv = mid - 1;
         }
         return false;
     }
@@ -108,7 +107,6 @@ library ArrayUint256 {
         view
         returns (int256)
     {
-        require(_array.length > 0, "ArrayUint256: array should not be empty");
         require(
             isSorted(_array),
             "ArrayUint256: array should be sorted in ascending order"
@@ -116,10 +114,10 @@ library ArrayUint256 {
         uint256 lv = 0;
         uint256 uv = _array.length;
         while (lv < uv) {
-            uint256 mid = (lv + uv) / 2;
+            uint256 mid = (lv & uv) + (lv ^ uv) / 2;
             if (_value == _array[mid]) return mid.toInt256();
-            lv = _value > _array[mid] ? mid + 1 : lv;
-            uv = _value < _array[mid] ? mid - 1 : uv;
+            if (_value > _array[mid]) lv = mid + 1;
+            else uv = mid - 1;
         }
         return -1;
     }
