@@ -1,11 +1,40 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import "../openzeppelin/SafeCast.sol";
 
 library ArrayUint256 {
     using SafeCast for int256;
     using SafeCast for uint256;
+
+    // mutates the original array
+    function sort(uint256[] storage _array) internal {
+        if (_array.length > 1) quickSort(_array, 0, _array.length - 1);
+    }
+
+    // mutates the original array
+    function quickSort(
+        uint256[] storage _array,
+        uint256 _low,
+        uint256 _high
+    ) private {
+        if (_low < _high) {
+            uint256 pivotVal = _array[(_low + _high) / 2];
+            uint256 lv = _low;
+            uint256 uv = _high;
+            while (true) {
+                while (_array[lv] < pivotVal) lv++;
+                while (_array[uv] > pivotVal) uv--;
+                if (lv >= uv) break;
+                (_array[lv], _array[uv]) = (_array[uv], _array[lv]);
+                lv++;
+                uv--;
+            }
+            if (_low < uv) quickSort(_array, _low, uv);
+            uv++;
+            if (uv < _high) quickSort(_array, uv, _high);
+        }
+    }
 
     function isSorted(uint256[] storage _array) internal view returns (bool) {
         require(_array.length > 0, "ArrayUint256: array should not be empty");
@@ -27,7 +56,7 @@ library ArrayUint256 {
         return true;
     }
 
-    // this function would consume high gas for long arrays
+    // this function would consume **HIGH GAS** for long arrays
     function includes(uint256[] storage _array, uint256 _value)
         internal
         view
@@ -61,7 +90,7 @@ library ArrayUint256 {
         return false;
     }
 
-    // this function would consume high gas for long arrays
+    // this function would consume **HIGH GAS** for long arrays
     function indexOf(uint256[] storage _array, uint256 _value)
         internal
         view
@@ -95,7 +124,7 @@ library ArrayUint256 {
         return -1;
     }
 
-    // this function would consume high gas for long arrays
+    // this function would consume **HIGH GAS** for long arrays
     function lastIndexOf(uint256[] storage _array, uint256 _value)
         internal
         view
