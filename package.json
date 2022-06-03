@@ -1,6 +1,6 @@
 {
-  "name": "@akbng/array-sol",
-  "version": "0.1.0",
+  "name": "solarray",
+  "version": "0.1.1",
   "description": "A collection of commonly used array functions for solidity smart contracts",
   "scripts": {},
   "repository": {
