@@ -1,8 +1,11 @@
 {
-  "name": "sarry",
+  "name": "sorray",
   "version": "0.1.0",
   "description": "A collection of commonly used array functions for solidity smart contracts",
-  "scripts": {},
+  "files": [
+    "**/*.sol",
+    "/build/contracts/*.json"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akbng/ArrayUtils.git"
@@ -10,10 +13,13 @@
   "keywords": [
     "array",
     "solidity",
-    "solidity array",
-    "array library",
-    "array functions",
-    "array methods"
+    "functions",
+    "methods",
+    "smart",
+    "utility",
+    "uint",
+    "int",
+    "contracts"
   ],
   "author": "Ankan Bag",
   "license": "MIT",
