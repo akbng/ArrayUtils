@@ -3,59 +3,19 @@ pragma solidity ^0.8.0;
 
 import "../openzeppelin/SafeCast.sol";
 
+/// @dev Collection of some commonly used utility function for array of type address
 library ArrayAddress {
     using SafeCast for int256;
     using SafeCast for uint256;
 
-    // mutates the original array
-    function sort(address[] storage _array) internal {
-        if (_array.length > 1) quickSort(_array, 0, _array.length - 1);
-    }
-
-    // mutates the original array
-    function quickSort(
-        address[] storage _array,
-        uint256 _low,
-        uint256 _high
-    ) private {
-        if (_low < _high) {
-            address pivotVal = _array[(_low & _high) + (_low ^ _high) / 2];
-            uint256 lv = _low;
-            uint256 uv = _high;
-            while (true) {
-                while (_array[lv] < pivotVal) lv++;
-                while (_array[uv] > pivotVal) uv--;
-                if (lv >= uv) break;
-                (_array[lv], _array[uv]) = (_array[uv], _array[lv]);
-                lv++;
-                uv--;
-            }
-            if (_low < uv) quickSort(_array, _low, uv);
-            uv++;
-            if (uv < _high) quickSort(_array, uv, _high);
-        }
-    }
-
-    function isSorted(address[] storage _array) internal view returns (bool) {
-        require(_array.length > 0, "ArrayUint256: array should not be empty");
-        for (uint256 i = 0; i < _array.length - 1; i++) {
-            if (_array[i] >= _array[i + 1]) return false;
-        }
-        return true;
-    }
-
-    function isSortedDesc(address[] storage _array)
-        internal
-        view
-        returns (bool)
-    {
-        require(_array.length > 0, "ArrayUint256: array should not be empty");
-        for (uint256 i = 0; i < _array.length - 1; i++) {
-            if (_array[i] <= _array[i + 1]) return false;
-        }
-        return true;
-    }
-
+    /**
+     * @dev Returns if the given value is present in the array or not.
+     * Function complexity is O(n).
+     * It might cost very high gas for larger arrays.
+     *
+     * Requirements:
+     * - input array must not be empty
+     */
     function includes(address[] storage _array, address _value)
         internal
         view
@@ -68,26 +28,14 @@ library ArrayAddress {
         return false;
     }
 
-    function includesInSorted(address[] storage _array, address _value)
-        internal
-        view
-        returns (bool)
-    {
-        require(
-            isSorted(_array),
-            "ArrayUint256: array should be sorted in ascending order"
-        );
-        uint256 lv = 0;
-        uint256 uv = _array.length;
-        while (lv < uv) {
-            uint256 mid = (lv & uv) + (lv ^ uv) / 2;
-            if (_value == _array[mid]) return true;
-            if (_value > _array[mid]) lv = mid + 1;
-            else uv = mid - 1;
-        }
-        return false;
-    }
-
+    /**
+     * @dev Returns the index of the given value in the array.
+     * Function complexity is O(n).
+     * It might cost very high gas for larger arrays.
+     *
+     * Requirements:
+     * - input array must not be empty
+     */
     function indexOf(address[] storage _array, address _value)
         internal
         view
@@ -100,26 +48,14 @@ library ArrayAddress {
         return -1;
     }
 
-    function indexOfInSorted(address[] storage _array, address _value)
-        internal
-        view
-        returns (int256)
-    {
-        require(
-            isSorted(_array),
-            "ArrayUint256: array should be sorted in ascending order"
-        );
-        uint256 lv = 0;
-        uint256 uv = _array.length;
-        while (lv < uv) {
-            uint256 mid = (lv & uv) + (lv ^ uv) / 2;
-            if (_value == _array[mid]) return mid.toInt256();
-            if (_value > _array[mid]) lv = mid + 1;
-            else uv = mid - 1;
-        }
-        return -1;
-    }
-
+    /**
+     * @dev Returns the last found index of the given value in the array.
+     * Function complexity is O(n).
+     * It might cost very high gas for larger arrays.
+     *
+     * Requirements:
+     * - input array must not be empty
+     */
     function lastIndexOf(address[] storage _array, address _value)
         internal
         view
@@ -132,6 +68,15 @@ library ArrayAddress {
         }
     }
 
+    /**
+     * @dev Returns the element present at the given index of the array.
+     * It supports negative indexing where -1 means the last element and -length = first element.
+     * Function complexity is O(1).
+     *
+     * Requirements:
+     * - input array must not be empty
+     * - index must not be greater than the array length
+     */
     function at(address[] storage _array, int256 _index)
         internal
         view
@@ -148,7 +93,16 @@ library ArrayAddress {
         return _array[index];
     }
 
-    // mutates the original array
+    /**
+     * @dev Remove an element from a given index of the array.
+     * It changes the order of the array.
+     * It mutates the original array.
+     * Function complexity is O(1).
+     *
+     * Requirements:
+     * - input array must not be empty
+     * - index must not be greater than the array length
+     */
     function remove(address[] storage _array, uint256 _index) internal {
         require(_array.length > 0, "ArrayAddress: array should not be empty");
         require(
